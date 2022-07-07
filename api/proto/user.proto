@@ -7,9 +7,12 @@ service UserService {
 };
 
 message CreateUserRequest {
-
+    string Email = 1;
+    string Name = 2;
+    string Surname = 3;
+    string Password = 4;
 };
 
 message CreateUserResponse {
-    
+    string Result = 1;
 };
