@@ -2,13 +2,15 @@ package grpcserver
 
 import (
 	"context"
+	"fmt"
 	"msqrd/sneakers/pkg/api/userapi"
+	"os"
 
 	"google.golang.org/grpc"
 )
 
 func (s *GRPCServer) CreateUser(ctx context.Context, r *userapi.CreateUserRequest) (*userapi.CreateUserResponse, error) {
-	conn, err := grpc.Dial(":8081", grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf("%s:8081", os.Getenv("USER_SERVICE_URL")), grpc.WithInsecure())
 	if err != nil {
 		return nil, err
 	}
@@ -29,5 +31,8 @@ func (s *GRPCServer) CreateUser(ctx context.Context, r *userapi.CreateUserReques
 		return nil, err
 	}
 
-	return res, nil
+	return &userapi.CreateUserResponse{
+		Result: res.GetResult(),
+	}, nil
+
 }

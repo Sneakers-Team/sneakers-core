@@ -2,6 +2,8 @@ FROM golang
 
 EXPOSE 8080
 
+ENV USERSERVICE_URL = sneakers.userservice 
+
 WORKDIR /usr/src/app
 
 COPY go.mod .
